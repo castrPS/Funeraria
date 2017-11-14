@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class ConnectionFactory {
-	String user = "g172if686cc_eq06";
-	String password = "dbelrvuq";
-	String url_driver = "jdbc:oracle:thin:@oracle11g.cin.ufpe.br:1521:oracle";
-	public Connection getConnection() {
+	static String user = "g172if686cc_eq06";
+	static String password = "dbelrvuq";
+	static String url_driver = "jdbc:oracle:thin:@oracle11g.cin.ufpe.br:1521:oracle";
+	public static Connection createConnection() {
         try {
         	Class.forName("oracle.jdbc.driver.OracleDriver");
             return DriverManager.getConnection(url_driver, user, password) ;
