@@ -3,7 +3,7 @@ package Models;
 public class produto {
 	private int codProd;
 	private String descricao;
-	private int valor;
+	private double valor;
 	
 	public int getcodProd(){
 		return this.codProd;
@@ -13,7 +13,7 @@ public class produto {
 		return this.descricao;
 	}
 	
-	public int getvalor(){
+	public double getvalor(){
 		return this.valor;
 	}
 	
@@ -25,7 +25,7 @@ public class produto {
 		this.descricao = descricao;
 	}
 	 
-	public void setvalor(int valor){
+	public void setvalor(double valor){
 		this.valor = valor;
 	}
 
