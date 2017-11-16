@@ -37,13 +37,13 @@ public class RepositorioProduto {
 		ps.close();
 	 }
 	 
-	 public static Produto consultarCod(int cod) throws SQLException{
+	 public static Object consultarCod(int cod) throws SQLException{
 		 Produto produto;
 		 PreparedStatement ps;
 		 ResultSet rs;
 		 if(Base.getConnection() != null){
 			 ps = Base.getConnection().prepareStatement(CONSULTA_PRODUTO);
-			 ps.setString(1, cod);
+			 ps.setInt(1, cod);
 			 rs = ps.executeQuery();
 			 return rs.getObject(1);
 		 }
