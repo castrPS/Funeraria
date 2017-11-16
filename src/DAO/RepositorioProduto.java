@@ -11,7 +11,7 @@ import Models.Produto;
 
 public class RepositorioProduto {
 	 private static final String INSERIR_PRODUTO =
-	   "INSERT INTO tb_produto ("
+	   "INSERT INTO produto ("
 	   +"cod_prod, descricao, valor)"
 	   +"values"+
 	   "(?, ?, ?)";

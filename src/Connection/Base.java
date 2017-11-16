@@ -14,7 +14,7 @@ public class Base {
     private static final Base ourInstance = new Base();
     private Connection connection;
 
-    private Base() {
+    Base() {
         connection = ConnectionFactory.createConnection();
     }
 

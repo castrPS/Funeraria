@@ -1,6 +1,6 @@
 package Models;
 
-public class produto {
+public class Produto {
 	private int codProd;
 	private String descricao;
 	private double valor;
