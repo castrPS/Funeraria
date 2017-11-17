@@ -5,6 +5,12 @@ public class Produto {
 	private String descricao;
 	private double valor;
 	
+	public Produto(int codProd, String descricao, double valor) {
+		this.codProd = codProd;
+		this.descricao = descricao;
+		this.valor = valor;
+	}
+	
 	public int getcodProd(){
 		return this.codProd;
 	}
