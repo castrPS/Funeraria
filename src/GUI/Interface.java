@@ -29,6 +29,8 @@ import javax.swing.JTextPane;
 import java.awt.Canvas;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JSeparator;
 
 public class Interface extends JFrame {
 
@@ -37,7 +39,7 @@ public class Interface extends JFrame {
 	private JTextField valorField;
 	private JTextField descField;
 	private String caminho;
-	private JTextField textField_3;
+	private JTextField CodConsField;
 
 	/**
 	 * Launch the application.
@@ -72,40 +74,60 @@ public class Interface extends JFrame {
 		
 		JPanel Consulta = new JPanel();
 		tabbedPane.addTab("Consulta", null, Consulta, null);
-		Consulta.setLayout(new BorderLayout(0, 0));
+		Consulta.setLayout(null);
 		
 		JPanel Busca = new JPanel();
-		Consulta.add(Busca, BorderLayout.NORTH);
+		Busca.setBounds(0, 0, 419, 33);
+		Consulta.add(Busca);
 		
 		JLabel lblCdigo_1 = new JLabel("C\u00F3digo:");
 		Busca.add(lblCdigo_1);
 		
-		textField_3 = new JTextField();
-		Busca.add(textField_3);
-		textField_3.setColumns(10);
+		CodConsField = new JTextField();
+		Busca.add(CodConsField);
+		CodConsField.setColumns(10);
 		
-		JButton btnConsultar = new JButton("Ver Detalhes");
-		Busca.add(btnConsultar);
 		
-		JPanel Lista = new JPanel();
-		Consulta.add(Lista, BorderLayout.CENTER);
+		JLabel lblValor_1 = new JLabel("Valor:");
+		lblValor_1.setBounds(10, 38, 46, 20);
+		Consulta.add(lblValor_1);
 		
-		JPanel panel = new JPanel();
-		Consulta.add(panel, BorderLayout.SOUTH);
+		JTextPane valorPane = new JTextPane();
+		valorPane.setBounds(51, 38, 139, 20);
+		Consulta.add(valorPane);
 		
-		JButton Alfabetica = new JButton("Ordem Alfab\u00E9tica");
-		panel.add(Alfabetica);
-		
-		JButton Crescente = new JButton("Valor (Crescente)");
-		Crescente.addActionListener(new ActionListener() {
+		JTextPane descricaoPane = new JTextPane();
+		descricaoPane.setBounds(10, 71, 180, 142);
+		Consulta.add(descricaoPane);
+		tabbedPane.setBackgroundAt(0, Color.GRAY);
+		 
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(200, 39, 209, 174);
+		Consulta.add(lblNewLabel);
+
+		JButton btnConsultar = new JButton("Consultar");
+		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int codigoConsulta = Integer.parseInt(CodConsField.getText());
+				Produto p = null;
+				try {
+					p = (Produto) RepositorioProduto.consultarCod(codigoConsulta);
+					valorPane.setText("" + p.getvalor());
+					descricaoPane.setText(p.getdescricao());
+				} catch (SQLException e) {
+					e.printStackTrace();
+					descricaoPane.setText("Código não cadastrado");
+				}
+				try {
+					String icon =  (String) RepositorioMidia.consultarCod(codigoConsulta);
+					lblNewLabel.setIcon(new ImageIcon(icon));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		});
-		panel.add(Crescente);
+		Busca.add(btnConsultar);
 		
-		JButton Decrescente = new JButton("Valor (Decrescente)");
-		panel.add(Decrescente);
-		tabbedPane.setBackgroundAt(0, Color.GRAY);
 		
 		JPanel Cadastro = new JPanel();
 		tabbedPane.addTab("Cadastro", null, Cadastro, null);
@@ -145,23 +167,18 @@ public class Interface extends JFrame {
 		btnCadastrar.setEnabled(false);
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int codigo = Integer.parseInt(codField.getText());
+
 				try{
+				int codigo = Integer.parseInt(codField.getText());
 				double valor = Double.parseDouble(valorField.getText());
 				String descricao = descField.getText();
 				Produto produto = new Produto(codigo,descricao,valor);
-				try {
-					RepositorioProduto.armazenar(produto);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				try {
-					RepositorioMidia.armazenar(produto, caminho);
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				}catch(Exception er){
+				RepositorioProduto.armazenar(produto);
+				RepositorioMidia.armazenar(produto, caminho);
+				}catch(NumberFormatException er){
 					JOptionPane.showMessageDialog(null, "Apenas números");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 				}
 				
 			}

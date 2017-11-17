@@ -17,7 +17,7 @@ import Models.Produto;
 
 public class RepositorioMidia {
 	 private static final String INSERIR_MIDIA =
-	   "INSERT INTO tb_midia ("
+	   "INSERT INTO midia ("
 	   +"cod_prod, nome, objeto)"
 	   +"values"+
 	   "(?, ?, ?)";
