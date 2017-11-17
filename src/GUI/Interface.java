@@ -14,6 +14,8 @@ import Models.Produto;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -144,6 +146,7 @@ public class Interface extends JFrame {
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int codigo = Integer.parseInt(codField.getText());
+				try{
 				double valor = Double.parseDouble(valorField.getText());
 				String descricao = descField.getText();
 				Produto produto = new Produto(codigo,descricao,valor);
@@ -157,6 +160,10 @@ public class Interface extends JFrame {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
+				}catch(Exception er){
+					JOptionPane.showMessageDialog(null, "Apenas números");
+				}
+				
 			}
 		});
 		btnCadastrar.setBounds(274, 184, 135, 29);
