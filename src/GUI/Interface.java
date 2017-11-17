@@ -25,13 +25,15 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.Canvas;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
 
 public class Interface extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField codField;
+	private JTextField valorField;
+	private JTextField descField;
 	private String caminho;
 	private JTextField textField_3;
 
@@ -68,20 +70,39 @@ public class Interface extends JFrame {
 		
 		JPanel Consulta = new JPanel();
 		tabbedPane.addTab("Consulta", null, Consulta, null);
-		Consulta.setLayout(null);
+		Consulta.setLayout(new BorderLayout(0, 0));
+		
+		JPanel Busca = new JPanel();
+		Consulta.add(Busca, BorderLayout.NORTH);
 		
 		JLabel lblCdigo_1 = new JLabel("C\u00F3digo:");
-		lblCdigo_1.setBounds(10, 199, 46, 14);
-		Consulta.add(lblCdigo_1);
+		Busca.add(lblCdigo_1);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(66, 196, 143, 20);
-		Consulta.add(textField_3);
+		Busca.add(textField_3);
 		textField_3.setColumns(10);
 		
-		JButton btnConsultar = new JButton("Consultar");
-		btnConsultar.setBounds(320, 195, 89, 23);
-		Consulta.add(btnConsultar);
+		JButton btnConsultar = new JButton("Ver Detalhes");
+		Busca.add(btnConsultar);
+		
+		JPanel Lista = new JPanel();
+		Consulta.add(Lista, BorderLayout.CENTER);
+		
+		JPanel panel = new JPanel();
+		Consulta.add(panel, BorderLayout.SOUTH);
+		
+		JButton Alfabetica = new JButton("Ordem Alfab\u00E9tica");
+		panel.add(Alfabetica);
+		
+		JButton Crescente = new JButton("Valor (Crescente)");
+		Crescente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		panel.add(Crescente);
+		
+		JButton Decrescente = new JButton("Valor (Decrescente)");
+		panel.add(Decrescente);
 		tabbedPane.setBackgroundAt(0, Color.GRAY);
 		
 		JPanel Cadastro = new JPanel();
@@ -93,10 +114,10 @@ public class Interface extends JFrame {
 		lblCdigo.setBounds(10, 11, 73, 19);
 		Cadastro.add(lblCdigo);
 		
-		textField = new JTextField();
-		textField.setBounds(100, 12, 309, 20);
-		Cadastro.add(textField);
-		textField.setColumns(10);
+		codField = new JTextField();
+		codField.setBounds(100, 12, 309, 20);
+		Cadastro.add(codField);
+		codField.setColumns(10);
 		
 		JLabel lblValor = new JLabel("Valor:");
 		lblValor.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -108,36 +129,23 @@ public class Interface extends JFrame {
 		lblDescrio.setBounds(10, 72, 73, 19);
 		Cadastro.add(lblDescrio);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(100, 43, 309, 20);
-		Cadastro.add(textField_1);
-		textField_1.setColumns(10);
+		valorField = new JTextField();
+		valorField.setBounds(100, 43, 309, 20);
+		Cadastro.add(valorField);
+		valorField.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(100, 73, 309, 44);
-		Cadastro.add(textField_2);
-		textField_2.setColumns(10);
+		descField = new JTextField();
+		descField.setBounds(100, 73, 309, 44);
+		Cadastro.add(descField);
+		descField.setColumns(10);
 		
-		JButton btnSelecionarImagem = new JButton("Selecionar imagem");
-		btnSelecionarImagem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser abrir = new JFileChooser();
-				int retorno = abrir.showOpenDialog(null);
-				if (retorno == JFileChooser.APPROVE_OPTION) {
-					caminho = abrir.getSelectedFile().getAbsolutePath();
-				}
-			}
-		});
-		btnSelecionarImagem.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnSelecionarImagem.setBounds(100, 184, 136, 29);
-		Cadastro.add(btnSelecionarImagem);
-
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setEnabled(false);
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int codigo = Integer.parseInt(textField.getText());
-				double valor = Double.parseDouble(textField_1.getText());
-				String descricao = textField_2.getText();
+				int codigo = Integer.parseInt(codField.getText());
+				double valor = Double.parseDouble(valorField.getText());
+				String descricao = descField.getText();
 				Produto produto = new Produto(codigo,descricao,valor);
 				try {
 					RepositorioProduto.armazenar(produto);
@@ -153,5 +161,23 @@ public class Interface extends JFrame {
 		});
 		btnCadastrar.setBounds(274, 184, 135, 29);
 		Cadastro.add(btnCadastrar);
+		
+		JButton btnSelecionarImagem = new JButton("Selecionar imagem");
+		btnSelecionarImagem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser abrir = new JFileChooser();
+				int retorno = abrir.showOpenDialog(null);
+				if (retorno == JFileChooser.APPROVE_OPTION) {
+					caminho = abrir.getSelectedFile().getAbsolutePath();
+					btnCadastrar.setEnabled(true);
+				}
+			}
+		});
+		btnSelecionarImagem.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnSelecionarImagem.setBounds(100, 184, 136, 29);
+		Cadastro.add(btnSelecionarImagem);
+
+		
+		
 	}
 }
