@@ -63,7 +63,7 @@ public class Interface extends JFrame {
 	public Interface() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 399);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -89,21 +89,21 @@ public class Interface extends JFrame {
 		
 		
 		JLabel lblValor_1 = new JLabel("Valor:");
-		lblValor_1.setBounds(10, 38, 46, 20);
+		lblValor_1.setBounds(0, 38, 46, 20);
 		Consulta.add(lblValor_1);
 		
 		JTextPane valorPane = new JTextPane();
-		valorPane.setBounds(51, 38, 139, 20);
+		valorPane.setBounds(42, 38, 139, 20);
 		Consulta.add(valorPane);
 		
 		JTextPane descricaoPane = new JTextPane();
-		descricaoPane.setBounds(10, 71, 180, 142);
+		descricaoPane.setBounds(229, 38, 180, 20);
 		Consulta.add(descricaoPane);
 		tabbedPane.setBackgroundAt(0, Color.GRAY);
 		 
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(200, 39, 209, 174);
-		Consulta.add(lblNewLabel);
+		JLabel image = new JLabel("");
+		image.setBounds(0, 69, 419, 154);
+		Consulta.add(image);
 
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
@@ -112,21 +112,29 @@ public class Interface extends JFrame {
 				Produto p = null;
 				try {
 					p = (Produto) RepositorioProduto.consultarCod(codigoConsulta);
+					if(p==null){
+						JOptionPane.showMessageDialog(null, "Produto Nao Cadastrado");
+					}else{
 					valorPane.setText("" + p.getvalor());
 					descricaoPane.setText(p.getdescricao());
+					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 					descricaoPane.setText("Código não cadastrado");
 				}
 				try {
 					String icon =  (String) RepositorioMidia.consultarCod(codigoConsulta);
-					lblNewLabel.setIcon(new ImageIcon(icon));
+					image.setIcon(new ImageIcon(icon));
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 		});
 		Busca.add(btnConsultar);
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setBounds(190, 38, 46, 20);
+		Consulta.add(lblNome);
 		
 		
 		JPanel Cadastro = new JPanel();

@@ -41,7 +41,9 @@ public class RepositorioMidia {
 		PreparedStatement ps;
 		ps = Base.getConnection().prepareStatement(INSERIR_MIDIA);
 		ps.setInt(1, produto.getcodProd());
-		String[] point= path.split(".");
+		System.out.println(path);
+		String[] point= path.split("\\.");
+		System.out.println(point.length);
 		String nome = produto.getdescricao();
 		System.out.println(nome+"."+point[point.length-1]);
 		ps.setString(2, nome);
@@ -60,7 +62,7 @@ public class RepositorioMidia {
 		}
 	 }
 	 
-	 public static Object consultarCod(int cod) throws SQLException{
+	 public static String consultarCod(int cod) throws SQLException{
 		 PreparedStatement ps;
 		 ResultSet rs;
 		 Blob b=null;
@@ -86,7 +88,7 @@ public class RepositorioMidia {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	      
+	             return (String) rs.getObject(2);
 			 }
 		 }
 		return null;
