@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class ConnectionFactory {
-	private static final String url_driver = "jdbc:oracle:thin:@oracle11g_Instance01:1521:";
+	private static final String url_driver = "jdbc:oracle:thin:@oracle11g.cin.ufpe.br:1521:Instance01";
     private static final String user = "g172if686cc_eq06";
     private static final String password = "dbelrvuq";
 

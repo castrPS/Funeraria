@@ -173,12 +173,12 @@ public class Interface extends JFrame {
 				double valor = Double.parseDouble(valorField.getText());
 				String descricao = descField.getText();
 				Produto produto = new Produto(codigo,descricao,valor);
-				RepositorioProduto.armazenar(produto);
 				RepositorioMidia.armazenar(produto, caminho);
+				RepositorioProduto.armazenar(produto);
 				}catch(NumberFormatException er){
 					JOptionPane.showMessageDialog(null, "Apenas números");
 				} catch (SQLException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 				
 			}

@@ -37,8 +37,8 @@ public class RepositorioMidia {
 		PreparedStatement ps;
 		ps = Base.getConnection().prepareStatement(INSERIR_MIDIA);
 		ps.setInt(1, produto.getcodProd());
-		String [] a= path.split("/");
-		String nome = a[a.length-1];
+		String nome = produto.getdescricao();
+		System.out.println(nome);
 		ps.setString(2, nome);
 		if(path!=null){
 			File file= new File(path);

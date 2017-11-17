@@ -37,7 +37,7 @@ public class RepositorioProduto {
 		ps.close();
 	 }
 	 
-	 public static Object consultarCod(int cod) throws SQLException{
+	 public static Produto consultarCod(int cod) throws SQLException{
 		 Produto produto;
 		 PreparedStatement ps;
 		 ResultSet rs;
@@ -45,7 +45,9 @@ public class RepositorioProduto {
 			 ps = Base.getConnection().prepareStatement(CONSULTA_PRODUTO);
 			 ps.setInt(1, cod);
 			 rs = ps.executeQuery();
-			 return rs.getObject(1);
+			 while(rs.next()){
+				 return (Produto) rs.getObject(1);
+			 }
 		 }
 
 		 return null;
