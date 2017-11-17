@@ -1,5 +1,6 @@
 package DAO;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -46,7 +47,10 @@ public class RepositorioProduto {
 			 ps.setInt(1, cod);
 			 rs = ps.executeQuery();
 			 while(rs.next()){
-				 return (Produto) rs.getObject(1);
+				 if(rs!=null)
+				 System.out.println("Produto" + rs.getObject(1));
+				 Produto p= new Produto(((BigDecimal) rs.getObject(1)).intValue(), (String) rs.getObject(2),((BigDecimal) rs.getObject(3)).doubleValue());
+				 return p;
 			 }
 		 }
 
