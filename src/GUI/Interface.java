@@ -28,6 +28,7 @@ import java.awt.Canvas;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JSeparator;
 
 public class Interface extends JFrame {
 
