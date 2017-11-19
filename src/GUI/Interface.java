@@ -89,14 +89,16 @@ public class Interface extends JFrame {
 		
 		
 		JLabel lblValor_1 = new JLabel("Valor:");
-		lblValor_1.setBounds(0, 38, 46, 20);
+		lblValor_1.setBounds(10, 38, 46, 20);
 		Consulta.add(lblValor_1);
 		
 		JTextPane valorPane = new JTextPane();
-		valorPane.setBounds(42, 38, 139, 20);
+		valorPane.setEditable(false);
+		valorPane.setBounds(50, 38, 131, 20);
 		Consulta.add(valorPane);
 		
 		JTextPane descricaoPane = new JTextPane();
+		descricaoPane.setEditable(false);
 		descricaoPane.setBounds(229, 38, 180, 20);
 		Consulta.add(descricaoPane);
 		tabbedPane.setBackgroundAt(0, Color.GRAY);
@@ -109,6 +111,7 @@ public class Interface extends JFrame {
 		btnConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int codigoConsulta = Integer.parseInt(CodConsField.getText());
+				CodConsField.setText("");
 				Produto p = null;
 				try {
 					p = (Produto) RepositorioProduto.consultarCod(codigoConsulta);
@@ -180,6 +183,9 @@ public class Interface extends JFrame {
 				int codigo = Integer.parseInt(codField.getText());
 				double valor = Double.parseDouble(valorField.getText());
 				String descricao = descField.getText();
+				codField.setText("");
+				valorField.setText("");
+				descField.setText("");
 				Produto produto = new Produto(codigo,descricao,valor);
 				RepositorioProduto.armazenar(produto);
 				RepositorioMidia.armazenar(produto, caminho);
